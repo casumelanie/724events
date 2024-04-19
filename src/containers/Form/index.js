@@ -12,6 +12,8 @@ const Form = ({ onSuccess, onError }) => {
     async (evt) => {
       evt.preventDefault();
       setSending(true);
+      onSuccess(true)
+      // Rajout de la L15 pour mettre à jour le state de la modale à true
       // We try to call mockContactApi
       try {
         await mockContactApi();

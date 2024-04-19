@@ -14,4 +14,4 @@ export const MONTHS = {
 };
 
 export const getMonth = (date) => MONTHS[date.getMonth() + 1];
-// Je rajoute + 1 ici car il n'arrive pas à trouver le mois, car getMonth() retourne le mois de la date en partant de l'index 0
+// Rajout du +1 car getMonth() retourne le mois de la date en partant de l'index 0
