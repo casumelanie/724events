@@ -12,7 +12,8 @@ const Slider = () => {
   );
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
+      () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0),
+          // Ici je rajoute -1 à la longueur du tableau pour gérer le problème de la slide en trop
       5000
     );
   };
@@ -45,7 +46,8 @@ const Slider = () => {
                   key={`${event.id}`}
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  checked={index === radioIdx}
+                  // idx devient index, sinon il ne peut pas trouver le bon index actif
                 />
               ))}
             </div>
