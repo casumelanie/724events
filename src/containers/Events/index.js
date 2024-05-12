@@ -12,26 +12,13 @@ const PER_PAGE = 9;
 const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState(null);
-  // Initialisation du state à null, car pas de type à l'ouverture de la page
+  // Initialisation du state à null, car il n'y a pas de type à l'ouverture de la page
   const [currentPage, setCurrentPage] = useState(1);
-
-/*   const filteredEvents = (
-    (type !== null
-      ? data?.events.filter((event) => event.type === type)
-      : data?.events) || []
-  ).filter((event, index) => {
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
-      return true;
-    }
-    return false;
-  }); */
-
   const filteredEvents = (
-    (type === null
-      ? data?.events : data?.events.filter((event) => event.type === type)) || []
+    (!type
+      ? data?.events
+      : data?.events.filter((event) => event.type === type)) || []
+      // Modification du ternaire pour rajouter la condition du filtrage
   ).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
@@ -41,31 +28,9 @@ const EventList = () => {
     }
     return false;
   });
-
-/* filteredEvents = (
-    (type !== null
-      ? data?.events.filter((event) => event.type === type)
-      : data?.events) || []
-  ) */ 
-
-  // const filteredEvents = (!type ? data?.filter((eventFiltered) => eventFiltered.type === type) : data?.events) || [];
-/*   const filteredEvents = data?.filter((eventFiltered) => eventFiltered.type === type) || [];
-
-  const filteredEventsPagination = filteredEvents.filter((event, index) => {
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
-      return true;
-    }
-    return false;
-  }); */
-
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
-    
-    console.log(filteredEvents)
   };
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
   const typeList = new Set(data?.events.map((event) => event.type));
@@ -96,7 +61,7 @@ const EventList = () => {
               </Modal>
             ))}
           </div>
-           <div className="Pagination">
+          <div className="Pagination">
             {[...Array(pageNumber || 0)].map((_, n) => (
               // eslint-disable-next-line react/no-array-index-key
               <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)}>
