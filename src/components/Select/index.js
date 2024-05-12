@@ -19,7 +19,8 @@ const Select = ({
     onChange(newValue);
     // Passage de la newValue en paramètre de onChange
     setValue(newValue);
-    setCollapsed(newValue);
+    setCollapsed(true);
+    // Passage de setCollapsed à true pour refermer automatiquement le select
   };
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
