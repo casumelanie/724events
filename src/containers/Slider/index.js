@@ -7,9 +7,9 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-  const byDateDesc = data?.focus.sort((evtA, evtB) =>
+  const byDateDesc = data?.focus ? data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
-  );
+  ) : [0];
   // Modification de la condition : < devient > pour afficher les évènements les plus récents en premier
   const nextCard = () => {
     setTimeout(
@@ -24,7 +24,7 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <div key={event.title}>
+        <div key={`${event.title} + ${idx}`}>
           <div
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
@@ -43,10 +43,11 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                  key={`${event.title}`}
+                  key={radioIdx}
                   type="radio"
                   name="radio-button"
                   checked={index === radioIdx}
+                  readOnly
                   // idx devient index, afin de se référer au bon index utilisé
                 />
               ))}
